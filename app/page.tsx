@@ -1,6 +1,5 @@
 import EventCard from '@/components/EventCard'
 import ExploreBtn from '@/components/ExploreBtn'
-import { time } from 'console'
 import React from 'react'
 import events from '@/lib/constants'
 
