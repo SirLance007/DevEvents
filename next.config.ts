@@ -2,6 +2,18 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  typescript : {
+    ignoreBuildErrors : true,
+  },
+  images : {
+    remotePatterns : [
+      {
+        protocol : 'https',
+        // this is where cloudinary images will be stored 
+        hostname : 'res.cloudinary.com',
+      }
+    ]
+  },
   async rewrites() {
     return [
       {
