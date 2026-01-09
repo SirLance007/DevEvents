@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "app/api/**/*.ts": {
+      "maxDuration": 30
+    }
+  },
+  "env": {
+    "MONGODB_URI": "@mongodb_uri",
+    "CLOUDINARY_URL": "@cloudinary_url",
+    "NEXT_PUBLIC_POSTHOG_KEY": "@posthog_key",
+    "NEXT_PUBLIC_POSTHOG_HOST": "@posthog_host"
+  }
+}

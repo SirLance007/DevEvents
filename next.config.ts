@@ -2,15 +2,15 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  typescript : {
-    ignoreBuildErrors : true,
+  typescript: {
+    ignoreBuildErrors: false, // Production mein false karo
   },
-  images : {
-    remotePatterns : [
+  images: {
+    remotePatterns: [
       {
-        protocol : 'https',
+        protocol: 'https',
         // this is where cloudinary images will be stored 
-        hostname : 'res.cloudinary.com',
+        hostname: 'res.cloudinary.com',
       }
     ]
   },

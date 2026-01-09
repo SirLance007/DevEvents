@@ -27,6 +27,35 @@ interface Event {
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
+async function getEvent(slug: string): Promise<Event | null> {
+  try {
+    // Use Vercel URL in production, localhost in development
+    const baseUrl = process.env.VERCEL_URL 
+      ? `https://${process.env.VERCEL_URL}` 
+      : process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    
+    const res = await fetch(
+      `${baseUrl}/api/events/${slug}`,
+      {
+        cache: 'no-store' // Always fetch fresh data
+      }
+    )
+    
+    if (!res.ok) {
+      if (res.status === 404) {
+        return null
+      }
+      throw new Error('Failed to fetch event')
+    }
+    
+    const data = await res.json()
+    return data.event
+  } catch (error) {
+    console.error('Error fetching event:', error)
+    return null
+  }
+}
+
 const EventDeatilItem = ({ icon, alt, label }: { icon: string; alt: string; label: string; }) => (
     <div className='flex-row-gap-2 items-center'>
         <Image src={icon} alt={alt} width={17} height={17} />
@@ -59,21 +88,41 @@ const EventDetailsPage = async ({ params }: { params: Promise<{ slug: string }> 
 
     const { slug } = await params;
     
+    const event = await getEvent(slug);
+    
+    if (!event) {
+        return notFound();
+    }
+
     try {
-        const request = await fetch(`${BASE_URL}/api/events/${slug}`, {
-            cache: 'no-store'
-        });
-        
-        if (!request.ok) {
-            return notFound();
-        }
-        
-        const response = await request.json();
-        const event = response.event;
-        
-        if (!event) {
-            return notFound();
-        }
+async function getEvent(slug: string): Promise<Event | null> {
+  try {
+    // Use Vercel URL in production, localhost in development
+    const baseUrl = process.env.VERCEL_URL 
+      ? `https://${process.env.VERCEL_URL}` 
+      : process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    
+    const res = await fetch(
+      `${baseUrl}/api/events/${slug}`,
+      {
+        cache: 'no-store' // Always fetch fresh data
+      }
+    )
+    
+    if (!res.ok) {
+      if (res.status === 404) {
+        return null
+      }
+      throw new Error('Failed to fetch event')
+    }
+    
+    const data = await res.json()
+    return data.event
+  } catch (error) {
+    console.error('Error fetching event:', error)
+    return null
+  }
+}
 
         const { 
             title,
